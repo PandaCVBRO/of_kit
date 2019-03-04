@@ -11,9 +11,10 @@ of_kit is a QUICK DEVELOP utils collection for Flutter.
   + [ ] Filter
   + [ ] Config
 
-+ [ ] Network Image
-  + [ ] Process
++ [ ] Image
+  + [ ] Async network image
   + [ ] Cache
+  + [ ] Process
 
 + [ ] Logger
   + [x] Easy logger
