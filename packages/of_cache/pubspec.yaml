@@ -1,0 +1,28 @@
+name: of_cache
+description: of_cache
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  sprintf: ^4.0.0
+  path: ^1.6.2
+  sqflite: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  of_logger:
+    path: ../of_logger
+
+flutter:
+  plugin:
+    androidPackage: com.openflutter.plugins.of_cache
+    pluginClass: OfCachePlugin
