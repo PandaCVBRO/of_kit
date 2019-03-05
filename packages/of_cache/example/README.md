@@ -1,16 +1,57 @@
-# of_cache_example
+## Base Object
 
-Demonstrates how to use the of_cache plugin.
+```json
+{
+    "json": {
+        "data": "qqnxI"
+    },
+    "updatedAt": "2019-02-20 08:50:49"
+}
+```
 
-## Getting Started
+## Basic Usage
 
-This project is a starting point for a Flutter application.
+```dart
+# 0.Get KvStore Instance
+KvStore()
 
-A few resources to get you started if this is your first Flutter project:
+# Save/Update Key-Value pair in default collection(table in sqlite)
+KvStore().putObject('city', {'data': randomAlpha(5)})
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+# Get object(row in sqlite) by Key
+KvStore().getObjectByKey('name')
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+# Get object count
+KvStore().getCountFromTable()
+
+# Get all objects
+KvStore().getAllItems()
+
+# Delete object by key
+KvStore().deleteObjectByKey('name')
+
+# Delete multiple objects by keys
+KvStore().deleteObjectsByKeys(['name', 'city'])
+
+# Delete multiple objects by prefix
+KvStore().deleteObjectsByKeyPrefix('c')
+
+# Delete all objects
+KvStore().clearTable()
+```
+
+## Advanced Usage
+
+```dart
+# Create new database
+KvStore().createTable('t_example')
+
+# Get databases
+KvStore().allTables()
+
+# Actions in specified database
+KvStore().putObject(randomAlpha(5), {'data': randomAlpha(5)}, 't_example')
+
+# Delete database
+KvStore().dropTable('t_example')
+```

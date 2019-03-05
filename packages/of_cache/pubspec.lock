@@ -54,11 +54,11 @@ packages:
     source: hosted
     version: "1.1.6"
   of_logger:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
-      path: "../of_logger"
-      relative: true
-    source: path
+      name: of_logger
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.1"
   path:
     dependency: "direct main"

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:of_cache/kv_storage.dart';
+import 'package:of_cache/of_cache.dart';
 import 'dart:convert';
 import 'package:random_string/random_string.dart';
 
@@ -36,7 +36,7 @@ class _KVStorageDemoPageState extends State<KVStorageDemoPage> {
                 },
               ),
             ),
-            Divider(color: Colors.blueGrey),
+            Divider(color: Colors.black),
             Expanded(
                 child: ListView.builder(
               itemCount: actions.length,

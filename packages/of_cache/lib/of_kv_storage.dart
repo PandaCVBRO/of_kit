@@ -51,7 +51,7 @@ class KvStore {
   }
 
   Future<int> createTable([String tableName = default_table]) async {
-    if (!await _checkTableName(tableName)) {
+    if (!await _checkTableName(tableName, true)) {
       OFLogger.error('Action: createTable($tableName)');
       return 0;
     }
@@ -91,7 +91,8 @@ class KvStore {
     }
 
     Database db = await this.db;
-    await db.delete(tableName);
+    db.execute(drop_table_sql);
+    // print(await db.delete(tableName));
     OFLogger.info('Action: dropTable($tableName), Effect rows 1');
     return 1;
   }
@@ -223,14 +224,15 @@ class KvStore {
     return effectRows;
   }
 
-  Future<bool> _checkTableName(String tableName) async {
+  Future<bool> _checkTableName(String tableName,
+      [bool checkTableExist = false]) async {
     if (tableName == null || tableName.length == 0 || tableName.contains(' ')) {
       OFLogger.error(
           'Action: _checkTableName($tableName), Table name format error.');
       return false;
     }
 
-    if (!await _checkTableExist(tableName)) {
+    if (!await _checkTableExist(tableName) && !checkTableExist) {
       OFLogger.warning(
           'Action: _checkTableExist($tableName), Table not found.');
       return false;
@@ -242,7 +244,6 @@ class KvStore {
   Future<bool> _checkTableExist(tableName) async {
     Database db = await this.db;
     List result = await db.rawQuery(check_table_exist, [tableName]);
-    print(' ---- $result');
     if (result.length > 0) {
       return true;
     } else {
@@ -267,7 +268,7 @@ const String clear_all_sql = 'DELETE from %s';
 const String delete_item_sql = 'DELETE from %s where id = ?';
 const String delete_items_sql = 'DELETE from %s where id in (%s)';
 const String delete_items_with_prefix_sql = 'DELETE from %s where id like ?';
-const String drop_table_sql = 'DROP TABLE "%s"';
+const String drop_table_sql = 'DROP TABLE t_example';
 
 const String default_table = 't_default';
 const String preferences_table = 't_preferences';

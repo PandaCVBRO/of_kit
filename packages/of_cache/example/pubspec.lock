@@ -68,11 +68,11 @@ packages:
     source: path
     version: "0.0.1"
   of_logger:
-    dependency: "direct main"
+    dependency: transitive
     description:
-      path: "../../of_logger"
-      relative: true
-    source: path
+      name: of_logger
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.1"
   path:
     dependency: transitive
