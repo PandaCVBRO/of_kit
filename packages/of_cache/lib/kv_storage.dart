@@ -51,14 +51,14 @@ class KvStore {
   }
 
   Future<int> createTable([String tableName = default_table]) async {
-    if (!_checkTableName(tableName)) {
+    if (!await _checkTableName(tableName)) {
       OFLogger.error('Action: createTable($tableName)');
       return 0;
     }
 
     Database db = await this.db;
     OFLogger.info('Action: createTable($tableName)');
-    return await db.rawUpdate(sprintf(create_table_sql, [tableName]));
+    return db.rawUpdate(sprintf(create_table_sql, [tableName]));
   }
 
   Future<List> allTables() async {
@@ -75,7 +75,7 @@ class KvStore {
   }
 
   Future<int> clearTable([String tableName = default_table]) async {
-    if (!_checkTableName(tableName)) {
+    if (!await _checkTableName(tableName)) {
       return 0;
     }
 
@@ -86,24 +86,19 @@ class KvStore {
   }
 
   Future<int> dropTable([String tableName = default_table]) async {
-    if (!_checkTableName(tableName)) {
+    if (!await _checkTableName(tableName)) {
       return 0;
     }
 
     Database db = await this.db;
-    try {
-      await db.rawDelete(sprintf(drop_table_sql, [tableName]));
-      OFLogger.info('Action: dropTable($tableName), Effect rows 1');
-      return 1;
-    } catch (e) {
-      OFLogger.error('Action: dropTable($tableName), ${e.toString()}');
-      return 0;
-    }
+    await db.delete(tableName);
+    OFLogger.info('Action: dropTable($tableName), Effect rows 1');
+    return 1;
   }
 
   Future<int> putObject(String key, Map value,
       [String tableName = default_table]) async {
-    if (!_checkTableName(tableName)) {
+    if (!await _checkTableName(tableName)) {
       return 0;
     }
 
@@ -118,7 +113,7 @@ class KvStore {
 
   Future<dynamic> getObjectByKey(String key,
       [String tableName = default_table]) async {
-    if (!_checkTableName(tableName)) {
+    if (!await _checkTableName(tableName)) {
       return {};
     }
 
@@ -140,7 +135,7 @@ class KvStore {
   }
 
   Future<dynamic> getAllItems([String tableName = default_table]) async {
-    if (!_checkTableName(tableName)) {
+    if (!await _checkTableName(tableName)) {
       return [];
     }
 
@@ -162,7 +157,7 @@ class KvStore {
   }
 
   Future<int> getCountFromTable([String tableName = default_table]) async {
-    if (!_checkTableName(tableName)) {
+    if (!await _checkTableName(tableName)) {
       return 0;
     }
 
@@ -176,7 +171,7 @@ class KvStore {
 
   Future<int> deleteObjectByKey(String key,
       [String tableName = default_table]) async {
-    if (!_checkTableName(tableName)) {
+    if (!await _checkTableName(tableName)) {
       return 0;
     }
 
@@ -192,7 +187,7 @@ class KvStore {
 
   Future<int> deleteObjectsByKeys(List keys,
       [String tableName = default_table]) async {
-    if (!_checkTableName(tableName)) {
+    if (!await _checkTableName(tableName)) {
       return 0;
     }
 
@@ -216,7 +211,7 @@ class KvStore {
 
   Future<int> deleteObjectsByKeyPrefix(String prefix,
       [String tableName = default_table]) async {
-    if (!_checkTableName(tableName)) {
+    if (!await _checkTableName(tableName)) {
       return 0;
     }
 
@@ -228,15 +223,35 @@ class KvStore {
     return effectRows;
   }
 
-  bool _checkTableName(String tableName) {
+  Future<bool> _checkTableName(String tableName) async {
     if (tableName == null || tableName.length == 0 || tableName.contains(' ')) {
       OFLogger.error(
           'Action: _checkTableName($tableName), Table name format error.');
       return false;
     }
+
+    if (!await _checkTableExist(tableName)) {
+      OFLogger.warning(
+          'Action: _checkTableExist($tableName), Table not found.');
+      return false;
+    }
+
     return true;
   }
+
+  Future<bool> _checkTableExist(tableName) async {
+    Database db = await this.db;
+    List result = await db.rawQuery(check_table_exist, [tableName]);
+    print(' ---- $result');
+    if (result.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
+
+const String check_table_exist = 'select name from sqlite_master where name=?';
 
 const String select_all_tables =
     'select * from sqlite_master where type="table"';

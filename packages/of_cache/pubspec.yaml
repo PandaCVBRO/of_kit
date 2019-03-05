@@ -1,7 +1,7 @@
 name: of_cache
-description: of_cache
+description: of_cache is a convenient storage/cache kit for flutter.
 version: 0.0.1
-author:
+author: Panda <panda@cvbro.io>
 homepage:
 
 environment:
