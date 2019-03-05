@@ -2,6 +2,16 @@
 
 of_kit is a QUICK DEVELOP utils collection for Flutter.
 
+## Submodule
+
+### [of_cache](https://github.com/PandaCVBRO/of_kit/tree/master/packages/of_cache)
+
+```yaml
+# of_cache is a convenient storage/cache kit for flutter.
+dependencies:
+    of_cache: ^0.0.1
+```
+
 ## TODO
 
 + [ ] Network
@@ -24,7 +34,7 @@ of_kit is a QUICK DEVELOP utils collection for Flutter.
   + [ ] Log upload
 
 + [ ] Cache
-  + [x] KV
+  + [x] Key-Value storage
   + [ ] Memory
   + [ ] Disk
     + [ ] SQLite
