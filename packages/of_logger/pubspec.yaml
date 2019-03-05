@@ -1,8 +1,8 @@
 name: of_logger
 description: of_logger
 version: 0.0.1
-author:
-homepage:
+author: Panda <panda@cvbro.io>
+homepage: https://github.com/PandaCVBRO/of_kit
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -27,7 +27,6 @@ flutter:
   plugin:
     androidPackage: com.openflutter.plugins.of_logger
     pluginClass: OfLoggerPlugin
-
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
@@ -38,7 +37,6 @@ flutter:
   #
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
-
   # To add custom fonts to your plugin package, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

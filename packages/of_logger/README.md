@@ -1,13 +1,14 @@
-# of_logger
+# of_logger for Flutter
 
-of_logger
+of_logger is a logger for flutter.
 
-## TODO
+## Getting Started
 
-+ [ ] Logger
-  + [x] Easy logger
-  + [ ] Logger UI
-  + [ ] Log config & Classification & Filter
-  + [ ] Color output
-  + [ ] Log persistent & archive
-  + [ ] Log upload
+   ```yaml
+    dependencies:
+        of_logger: ^0.0.1
+   ```
+
+## License
+
+MIT
